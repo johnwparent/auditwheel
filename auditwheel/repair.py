@@ -65,8 +65,9 @@ def repair_wheel(wheel_path: str, abis: List[str], lib_sdir: str, out_dir: str,
             for soname, src_path in ext_libs.items():
                 if src_path is None:
                     raise ValueError(('Cannot repair wheel, because required '
-                                      'library "%s" could not be located') %
-                                     soname)
+                                      'library "%s" could not be located\n'
+                                      'Required from "%s"')
+                                     % soname, os.path.basename(fn))
 
                 new_soname, new_path = copylib(src_path, dest_dir, patcher)
                 soname_map[soname] = (new_soname, new_path)
